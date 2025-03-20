@@ -33,7 +33,7 @@ namespace FlightTracker.Infra.Service
 				Departuretime = flight.Departuretime,
 				Flightnumber = flight.FlightName,
 				Availableseats = flight.Availableseats,
-				Status = flight.Status,
+				Status = 1,
 				Price = flight.Price,
 				Numberofpassengers = 0
 
@@ -69,6 +69,7 @@ namespace FlightTracker.Infra.Service
 			if (oldFlight == null)
 				return false;
 			oldFlight.Status = flight.Status ?? oldFlight.Status;
+			_flightRepository.UpdateFlight(oldFlight);
 			return true;
 		}
 	}

@@ -13,7 +13,6 @@ namespace FlightTracker.Core.Requests.Flight
         public DateTime Arrivaltime { get; set; }
         public decimal Price { get; set; }
         public decimal Availableseats { get; set; }
-        public decimal? Status { get; set; } = 1;
         public decimal? Arrivalairportid { get; set; }
         public decimal? Departureairportid { get; set; }
         public decimal Companyid { get; set; }

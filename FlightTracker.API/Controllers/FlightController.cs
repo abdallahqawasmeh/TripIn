@@ -58,6 +58,7 @@ namespace FlightTracker.API.Controllers
 			if (!result)
 				return NotFound();
 
+
 			return NoContent();
 		}
 

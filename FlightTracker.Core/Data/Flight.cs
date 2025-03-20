@@ -26,16 +26,12 @@ namespace FlightTracker.Core.Data
         public decimal? Departureairportid { get; set; }
         public decimal Numberofpassengers { get; set; }
         public decimal Companyid { get; set; }
-        [NotMapped]
-        public decimal TotalProfit=> Price * Numberofpassengers;
-        [NotMapped]
-        public decimal TotalLose=> Price * Availableseats;
-
+        
 
         public virtual Airport? Arrivalairport { get; set; }
         public virtual Company Company { get; set; } = null!;
         public virtual Airport? Departureairport { get; set; }
-        [JsonIgnore]
+       
         public virtual ICollection<Bookflight> Bookflights { get; set; }
         public virtual ICollection<Invoice> Invoices { get; set; }
         public virtual ICollection<Payment> Payments { get; set; }
