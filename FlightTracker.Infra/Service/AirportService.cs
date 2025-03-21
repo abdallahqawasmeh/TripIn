@@ -21,6 +21,7 @@ namespace FlightTracker.Infra.Service
 
 
 
+
 		public void CreateAirport(CreateAirportRequest airport)
 		{
 			var myAirport = new Airport()

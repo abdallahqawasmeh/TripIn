@@ -14,6 +14,7 @@ namespace FlightTracker.API.Controllers
 
 
 
+
 		private readonly IFlightService _flightService;
 
 		public FlightController(IFlightService flightService)
@@ -71,6 +72,17 @@ namespace FlightTracker.API.Controllers
 
 			_flightService.DeleteFlight(flightId);
 			return NoContent();
+		}
+		
+		[HttpPatch ("byDate")]
+		public IActionResult GetFlightsByDate([FromBody]SearchFlightsRequest request)
+		{
+            if (request.End == null && request.Start != null)
+                return BadRequest("the end and the start should be realatable "); 
+			if (request.End != null && request.Start == null)
+                return BadRequest("the end and the start should be realatable ");
+
+            return Ok(_flightService.GetFlightsByDate(request));
 		}
 
 

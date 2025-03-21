@@ -18,3 +18,4 @@ namespace FlightTracker.Core.Data
         public string? Footerparagraph { get; set; }
     }
 }
+

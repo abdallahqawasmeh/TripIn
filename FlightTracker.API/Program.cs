@@ -5,6 +5,7 @@ using FlightTracker.Infra.Common;
 using FlightTracker.Infra.Repository;
 using FlightTracker.Infra.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -36,7 +37,10 @@ builder.Services.AddScoped<ICompanyService,CompanyService >();
 builder.Services.AddScoped<IFlightService, FlightService>();
 
 
-
+builder.Services.Configure<JsonOptions>(options =>
+{
+	options.JsonSerializerOptions.Converters.Add(new TimeOnlyJsonConverter());
+});
 
 
 

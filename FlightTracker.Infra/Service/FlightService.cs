@@ -10,16 +10,19 @@ using System.Threading.Tasks;
 
 namespace FlightTracker.Infra.Service
 {
-	public class FlightService:IFlightService
+	public class FlightService : IFlightService
 	{
 
 
-
+		private readonly IAirportRepository _airportRepository;
 		private readonly IFlightRepository _flightRepository;
+		private readonly ICompanyRepository _companyRepository;
 
-		public FlightService(IFlightRepository flightRepository)
+		public FlightService(IAirportRepository airportRepository, IFlightRepository flightRepository, ICompanyRepository companyRepository)
 		{
+			_airportRepository = airportRepository;
 			_flightRepository = flightRepository;
+			_companyRepository = companyRepository;
 		}
 
 		public void CreateFlight(CreateFlightRequest flight)
@@ -60,10 +63,20 @@ namespace FlightTracker.Infra.Service
 
 		public Flight? GetFlightById(int flightId)
 		{
-			return _flightRepository.GetFlightById(flightId);
-		}
+			var flight = _flightRepository.GetFlightById(flightId);
+			if (flight == null)
+				return null;
+            var arrAir = _airportRepository.GetAirportById((int)flight.Arrivalairportid!); 
+			var depAir = _airportRepository.GetAirportById((int)flight.Departureairportid!);
+			var comp = _companyRepository.GetCompanyById((int)flight.Companyid)!;
+			flight.Arrivalairport = arrAir;
+            flight.Departureairport = depAir;
+			flight.Company = comp;
+			return flight;
 
-		public bool UpdateFlight(int flightId,UpdateFlightRequest flight)
+        }
+
+        public bool UpdateFlight(int flightId, UpdateFlightRequest flight)
 		{
 			var oldFlight = _flightRepository.GetFlightById(flightId);
 			if (oldFlight == null)
@@ -71,6 +84,27 @@ namespace FlightTracker.Infra.Service
 			oldFlight.Status = flight.Status ?? oldFlight.Status;
 			_flightRepository.UpdateFlight(oldFlight);
 			return true;
+		}
+		public List<Flight> GetFlightsByDate(SearchFlightsRequest request)
+		{
+			var isRangeNull = request.EndDateOnly == null || request.StartDateOnly == null || request.StartDateOnly == null;
+
+
+			var flights = GetAllFlights().Where(
+				x =>
+			(isRangeNull || (DateOnly.FromDateTime(x.Departuretime) >= request.StartDateOnly && DateOnly.FromDateTime(x.Departuretime) <= request.EndDateOnly))
+			&& (request.ArrivalAirPortId == x.Arrivalairportid && x.Departureairportid == request.DepartureAirportId)
+			);
+			if (request.Des)
+			{
+				if (request.SortByFastest)
+					return flights.OrderByDescending(x => x.Duration).ToList();
+				return flights.OrderByDescending(x => x.Price).ToList();
+			}
+
+			if (request.SortByFastest)
+				return flights.OrderBy(x => x.Duration).ToList();
+			return flights.OrderBy(x => x.Price).ToList();
 		}
 	}
 }

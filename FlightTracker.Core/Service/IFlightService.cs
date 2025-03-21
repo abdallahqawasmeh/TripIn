@@ -15,5 +15,8 @@ namespace FlightTracker.Core.Service
 		void CreateFlight(CreateFlightRequest flight);
 		bool UpdateFlight(int FlightID,UpdateFlightRequest flight);
 		void DeleteFlight(int flightId);
-	}
+		List<Flight> GetFlightsByDate(SearchFlightsRequest request);
+
+
+    }
 }

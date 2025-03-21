@@ -30,9 +30,12 @@ namespace FlightTracker.Core.Data
         public decimal TotalProfit=> Price * Numberofpassengers;
         [NotMapped]
         public decimal TotalLose=> Price * Availableseats;
+		public TimeOnly Duration =>
+			Arrivaltime < Departuretime
+				? TimeOnly.FromTimeSpan(Arrivaltime.Add(TimeSpan.FromDays(1)) - Departuretime)
+				: TimeOnly.FromTimeSpan(Arrivaltime - Departuretime);
 
-
-        public virtual Airport? Arrivalairport { get; set; }
+		public virtual Airport? Arrivalairport { get; set; }
         public virtual Company Company { get; set; } = null!;
         public virtual Airport? Departureairport { get; set; }
         [JsonIgnore]
