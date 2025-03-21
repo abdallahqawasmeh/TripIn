@@ -28,6 +28,8 @@ builder.Services.AddScoped<IAirportRepository, AirportRepository>();
 builder.Services.AddScoped<IFlightRepository, FlightRepository>();
 
 
+
+
 builder.Services.AddScoped<IAirportService,AirportService>();
 builder.Services.AddScoped<ICompanyService,CompanyService >();
 
