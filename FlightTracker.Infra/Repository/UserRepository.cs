@@ -38,16 +38,17 @@ namespace FlightTracker.Infra.Repository
 		public void CreateUser(User user, Userlogin userlogin)
 		{
 			var p = new DynamicParameters();
-			p.Add("p_FirstName", user.Firstname, dbType: DbType.String, direction: ParameterDirection.Input);
-			p.Add("p_LastName", user.Lastname, dbType: DbType.String, direction: ParameterDirection.Input);
-			p.Add("p_PhoneNumber", user.Phonenumber, dbType: DbType.String, direction: ParameterDirection.Input);
-			p.Add("p_Email", user.Email, dbType: DbType.String, direction: ParameterDirection.Input);
-			p.Add("p_Password", userlogin.Password, dbType: DbType.String, direction: ParameterDirection.Input);
-			p.Add("p_ImagePath", user.Imagepath, dbType: DbType.String, direction: ParameterDirection.Input);
 
-			_dbContext.Connection.Execute("PKG_USERS.CreateUser", p, commandType: CommandType.StoredProcedure);
+			p.Add("p_FirstName", user.Firstname, DbType.String, ParameterDirection.Input);
+			p.Add("p_LastName", user.Lastname, DbType.String, ParameterDirection.Input);
+			p.Add("p_PhoneNumber", user.Phonenumber, DbType.String, ParameterDirection.Input);
+			p.Add("p_Email", user.Email, DbType.String, ParameterDirection.Input);
+			p.Add("p_Username", userlogin.Username, DbType.String, ParameterDirection.Input);
+			p.Add("p_Password", userlogin.Password, DbType.String, ParameterDirection.Input);
+			p.Add("p_ImagePath", user.Imagepath, DbType.String, ParameterDirection.Input);
+
+			_dbContext.Connection.Execute("PKG_USERS.CreateUser",p,	commandType: CommandType.StoredProcedure);
 		}
-
 		public void UpdateUser(User user)
 		{
 			var p = new DynamicParameters();
