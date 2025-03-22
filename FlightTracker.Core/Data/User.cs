@@ -19,7 +19,7 @@ namespace FlightTracker.Core.Data
         public string Lastname { get; set; } = null!;
         public string? Phonenumber { get; set; }
         public string? Email { get; set; }
-        public string? Imagepath { get; set; }
+        public string? Imagepath { get; set;}
         public decimal? Flightcount { get; set; }
 
         public virtual ICollection<Contactu> Contactus { get; set; }

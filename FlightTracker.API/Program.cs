@@ -32,14 +32,18 @@ builder.Services.AddScoped<IFlightRepository, FlightRepository>();
 builder.Services.AddScoped<IUserLoginRepository, UserLoginRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
-
-
+builder.Services.AddScoped<IClaimsReader, ClaimsReader>();
+builder.Services.AddHttpContextAccessor();
 
 
 builder.Services.AddScoped<IAirportService,AirportService>();
 builder.Services.AddScoped<ICompanyService,CompanyService >();
 
+
+builder.Services.AddScoped<IUserService, UserService>();
+
 builder.Services.AddScoped<IFlightService, FlightService>();
+
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 

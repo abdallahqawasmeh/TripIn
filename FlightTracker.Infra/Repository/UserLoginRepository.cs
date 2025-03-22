@@ -41,26 +41,26 @@ namespace FlightTracker.Infra.Repository
 			return result.FirstOrDefault();
 		}
 		public Userlogin? GetLoginByUsername(string username)
-		{
-			var p = new DynamicParameters();
-			p.Add("p_Username", username, DbType.String, ParameterDirection.Input);
+{
+	var p = new DynamicParameters();
+	p.Add("p_Username", username, DbType.String, ParameterDirection.Input);
 
-			IEnumerable<Userlogin> result = _dbContext.Connection.Query<Userlogin>(
-				"UserLogin_Package.GetLoginByUsername",
-				p,
-				commandType: CommandType.StoredProcedure
-			);
+	IEnumerable<Userlogin> result = _dbContext.Connection.Query<Userlogin>(
+		"UserLogin_Package.GetLoginByUsername",
+		p,
+		commandType: CommandType.StoredProcedure
+	);
 
-			return result.FirstOrDefault();
-		}
+	return result.FirstOrDefault();
+}
 
 		public void CreateLogin(Userlogin userLogin)
 		{
 			var p = new DynamicParameters();
 			p.Add("username", userLogin.Username, dbType: DbType.String, direction: ParameterDirection.Input);
 			p.Add("password", userLogin.Password, dbType: DbType.String, direction: ParameterDirection.Input);
-			p.Add("role_id", userLogin.RoleId, dbType: DbType.Int32, direction: ParameterDirection.Input);
-			p.Add("user_id", userLogin.UserId, dbType: DbType.Int32, direction: ParameterDirection.Input);
+			p.Add("role_id", userLogin.Role_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+			p.Add("user_id", userLogin.User_Id, dbType: DbType.Int32, direction: ParameterDirection.Input);
 		
 
 			_dbContext.Connection.Execute("UserLogin_Package.CreateLogin", p, commandType: CommandType.StoredProcedure);
@@ -72,8 +72,8 @@ namespace FlightTracker.Infra.Repository
 			p.Add("ID", userLogin.Loginid, dbType: DbType.Int32, direction: ParameterDirection.Input);
 			p.Add("username", userLogin.Username, dbType: DbType.String, direction: ParameterDirection.Input);
 			p.Add("password", userLogin.Password, dbType: DbType.String, direction: ParameterDirection.Input);
-			p.Add("role_id", userLogin.RoleId, dbType: DbType.Int32, direction: ParameterDirection.Input);
-			p.Add("user_id", userLogin.UserId, dbType: DbType.Int32, direction: ParameterDirection.Input);
+			p.Add("role_id", userLogin.Role_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+			p.Add("user_id", userLogin.User_Id, dbType: DbType.Int32, direction: ParameterDirection.Input);
 
 			_dbContext.Connection.Execute("UserLogin_Package.UpdateLogin", p, commandType: CommandType.StoredProcedure);
 		}

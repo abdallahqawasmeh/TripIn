@@ -57,9 +57,10 @@ namespace FlightTracker.Infra.Service
             {
                 return null;
             }
+            user = _userLoginRepository.GetLoginById((int)user.Loginid)!;
             if(Password == user.Password)
             {
-                if(user.RoleId == 2)
+                if(user.Role_id == 2)
                     return AuthUser(Username);
                 return AuthAdmin(Username);
             }

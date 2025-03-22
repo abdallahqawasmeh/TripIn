@@ -712,11 +712,11 @@ namespace FlightTracker.Core.Data
                     .IsUnicode(false)
                     .HasColumnName("PASSWORD");
 
-                entity.Property(e => e.RoleId)
+                entity.Property(e => e.Role_id)
                     .HasColumnType("NUMBER(38)")
                     .HasColumnName("ROLE_ID");
 
-                entity.Property(e => e.UserId)
+                entity.Property(e => e.User_Id)
                     .HasColumnType("NUMBER(38)")
                     .HasColumnName("USER_ID");
 
@@ -732,13 +732,13 @@ namespace FlightTracker.Core.Data
 
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.Userlogins)
-                    .HasForeignKey(d => d.RoleId)
+                    .HasForeignKey(d => d.Role_id)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_USERLOGINS_ROLES");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Userlogins)
-                    .HasForeignKey(d => d.UserId)
+                    .HasForeignKey(d => d.User_Id)
                     .HasConstraintName("FK_USERLOGINS_USERS");
             });
 
