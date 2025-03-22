@@ -72,6 +72,11 @@ namespace FlightTracker.API.Controllers
 
 			_flightService.DeleteFlight(flightId);
 			return NoContent();
+
+
+
+
+
 		}
 		
 		[HttpPatch ("byDate")]
