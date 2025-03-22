@@ -40,6 +40,19 @@ namespace FlightTracker.Infra.Repository
 			);
 			return result.FirstOrDefault();
 		}
+		public Userlogin? GetLoginByUsername(string username)
+		{
+			var p = new DynamicParameters();
+			p.Add("p_Username", username, DbType.String, ParameterDirection.Input);
+
+			IEnumerable<Userlogin> result = _dbContext.Connection.Query<Userlogin>(
+				"UserLogin_Package.GetLoginByUsername",
+				p,
+				commandType: CommandType.StoredProcedure
+			);
+
+			return result.FirstOrDefault();
+		}
 
 		public void CreateLogin(Userlogin userLogin)
 		{

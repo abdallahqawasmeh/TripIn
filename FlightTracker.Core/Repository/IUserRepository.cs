@@ -19,6 +19,7 @@ namespace FlightTracker.Core.Repository
 		void CreateUser(User user, Userlogin userlogin);
 		void UpdateUser(User user);
 		void DeleteUser(int userId);
+		
 
 
 

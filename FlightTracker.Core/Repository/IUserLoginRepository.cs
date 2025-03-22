@@ -14,6 +14,7 @@ namespace FlightTracker.Core.Repository
 		void CreateLogin(Userlogin userLogin);
 		void UpdateLogin(Userlogin userLogin);
 		void DeleteLogin(int loginId);
+		Userlogin? GetLoginByUsername(string username);
 		Userlogin? AuthenticateUser(string username, string password);
 	}
 }

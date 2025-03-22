@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Linq;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +29,9 @@ builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 builder.Services.AddScoped<IAirportRepository, AirportRepository>();
 builder.Services.AddScoped<IFlightRepository, FlightRepository>();
+builder.Services.AddScoped<IUserLoginRepository, UserLoginRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
 
 
 
@@ -35,6 +40,7 @@ builder.Services.AddScoped<IAirportService,AirportService>();
 builder.Services.AddScoped<ICompanyService,CompanyService >();
 
 builder.Services.AddScoped<IFlightService, FlightService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 
 builder.Services.Configure<JsonOptions>(options =>
@@ -69,12 +75,18 @@ builder.Services.AddAuthentication(opt => {
 
 		ValidateIssuerSigningKey = true,
 
-		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKeyDana@345"))
+		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"))
 
 	};
 
 });
+
+
+
+
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
