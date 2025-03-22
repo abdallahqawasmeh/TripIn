@@ -12,5 +12,6 @@ namespace FlightTracker.Core.Repository
 		void CreateAboutUs(Aboutu aboutUs);
 		void UpdateAboutUs(Aboutu aboutUs);
 		void DeleteAboutUs(int id);
+		Aboutu? GetAboutUsById(int id);
 	}
 }

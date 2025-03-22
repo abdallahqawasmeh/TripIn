@@ -56,5 +56,26 @@ namespace FlightTracker.Infra.Repository
 
 			_dbContext.Connection.Execute("PKG_ContactInfo.DeleteContactInfo", p, commandType: CommandType.StoredProcedure);
 		}
+
+
+
+
+
+		public Contactinfo? GetContactInfoById(int id)
+		{
+			var p = new DynamicParameters();
+			p.Add("p_ContactId", id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+
+			IEnumerable<Contactinfo> result = _dbContext.Connection.Query<Contactinfo>(
+				"PKG_ContactInfo.GetContactInfoById",
+				p,
+				commandType: CommandType.StoredProcedure
+			);
+
+			return result.FirstOrDefault();
+		}
+
+
+
 	}
 }

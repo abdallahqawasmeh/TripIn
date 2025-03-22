@@ -13,5 +13,6 @@ namespace FlightTracker.Core.Repository
 		void CreateContactInfo(Contactinfo contactInfo);
 		void UpdateContactInfo(Contactinfo contactInfo);
 		void DeleteContactInfo(int contactId);
+		Contactinfo? GetContactInfoById(int id);
 	}
 }

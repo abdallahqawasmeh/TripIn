@@ -50,5 +50,20 @@ namespace FlightTracker.Infra.Repository
 
 			_dbContext.Connection.Execute("PKG_AboutUs.DeleteAboutUs", p, commandType: CommandType.StoredProcedure);
 		}
+
+
+		public Aboutu? GetAboutUsById(int id)
+		{
+			var p = new DynamicParameters();
+			p.Add("p_Id", id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+
+			IEnumerable<Aboutu> result = _dbContext.Connection.Query<Aboutu>(
+				"PKG_AboutUs.GetAboutUsById",
+				p,
+				commandType: CommandType.StoredProcedure
+			);
+
+			return result.FirstOrDefault();
+		}
 	}
 }

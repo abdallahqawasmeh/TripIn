@@ -62,6 +62,30 @@ namespace FlightTracker.Infra.Repository
 
 			_dbContext.Connection.Execute("PKG_Home.DeleteHome", p, commandType: CommandType.StoredProcedure);
 		}
+
+
+
+
+
+
+
+		public Home? GetHomeById(int id)
+		{
+			var p = new DynamicParameters();
+			p.Add("p_HomeId", id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+
+			IEnumerable<Home> result = _dbContext.Connection.Query<Home>(
+				"PKG_Home.GetHomeById",
+				p,
+				commandType: CommandType.StoredProcedure
+			);
+
+			return result.FirstOrDefault();
+		}
+
+
+
+
 	}
 }
 

@@ -21,30 +21,44 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IDbContext, DbContext>();
+builder.Services.AddScoped<IHomeRepository, HomeRepository>();
 builder.Services.AddScoped<IAboutUsRepository, AboutUsRepository>();
 builder.Services.AddScoped<IContactUsRepository, ContactUsRepository>();
 builder.Services.AddScoped<IContactInfoRepository, ContactInfoRepository>();
-builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
-builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
-builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+
 builder.Services.AddScoped<IAirportRepository, AirportRepository>();
 builder.Services.AddScoped<IFlightRepository, FlightRepository>();
-builder.Services.AddScoped<IUserLoginRepository, UserLoginRepository>();
+builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+builder.Services.AddScoped<ITestimonialRepository, TestimonialRepository>();
+
+
+builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserLoginRepository, UserLoginRepository>();
+//////////////////////////////////////////////////////////////////////////////////////////
+
 
 builder.Services.AddScoped<IClaimsReader, ClaimsReader>();
 builder.Services.AddHttpContextAccessor();
 
+//////////////////////////////////////////////////////////////////////////////////////////
+
+
+builder.Services.AddScoped<IManagePages, ManagePagesService>();
 
 builder.Services.AddScoped<IAirportService,AirportService>();
-builder.Services.AddScoped<ICompanyService,CompanyService >();
 
+builder.Services.AddScoped<ICompanyService,CompanyService >();
 
 builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddScoped<IFlightService, FlightService>();
 
 builder.Services.AddScoped<IAuthService, AuthService>();
+
 
 
 builder.Services.Configure<JsonOptions>(options =>

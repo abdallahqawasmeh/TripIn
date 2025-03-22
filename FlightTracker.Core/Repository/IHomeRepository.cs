@@ -15,5 +15,8 @@ namespace FlightTracker.Core.Repository
 		void CreateHome(Home home);
 		void UpdateHome(Home home);
 		void DeleteHome(int homeId);
+
+		Home? GetHomeById(int id);
+
 	}
 }
