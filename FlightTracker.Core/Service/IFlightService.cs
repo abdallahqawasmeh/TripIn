@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FlightTracker.Core.Service
 {
-	public interface IFlightService
+    public interface IFlightService
 	{
 		List<Flight> GetAllFlights();
 		Flight? GetFlightById(int flightId);
@@ -16,6 +16,10 @@ namespace FlightTracker.Core.Service
 		bool UpdateFlight(int FlightID,UpdateFlightRequest flight);
 		void DeleteFlight(int flightId);
 		List<Flight> GetFlightsByDate(SearchFlightsRequest request);
+		Task<bool?> BookFlight(int FlightId, int numberOfPassengers);
+		FlightStatistics? GetFlightStatistics(int flightId);
+
+
 
 
     }

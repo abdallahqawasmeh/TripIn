@@ -41,5 +41,17 @@ namespace FlightTracker.Infra.Repository
 
 			_dbContext.Connection.Execute("PKG_PAYMENT.UpdateFlightId", p, commandType: CommandType.StoredProcedure);
 		}
+
+
+
+
+		public void UpdatePaymentBalance(decimal balance)
+		{
+			var p = new DynamicParameters();
+			p.Add("p_Balance", balance, dbType: DbType.Decimal, direction: ParameterDirection.Input);
+
+			_dbContext.Connection.Execute("PKG_PAYMENT.UpdatePaymentBalance", p, commandType: CommandType.StoredProcedure);
+		}
+
 	}
 }

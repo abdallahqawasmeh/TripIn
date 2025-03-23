@@ -15,5 +15,9 @@ namespace FlightTracker.Core.Service
 		List<User> GetAllUsers();
 		List<User> GetUsersByName(string search);
 		User? GetUserById(int id);
-	}
+		void CreateTestMonial(string testmonialText);
+        List<Testimonial> GetTestimonials();
+
+
+    }
 }

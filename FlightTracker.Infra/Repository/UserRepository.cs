@@ -58,6 +58,7 @@ namespace FlightTracker.Infra.Repository
 			p.Add("p_PhoneNumber", user.Phonenumber, dbType: DbType.String, direction: ParameterDirection.Input);
 			p.Add("p_Email", user.Email, dbType: DbType.String, direction: ParameterDirection.Input);
 			p.Add("p_ImagePath", user.Imagepath, dbType: DbType.String, direction: ParameterDirection.Input);
+			p.Add("p_FlightCount",user.Flightcount, dbType: DbType.Int32, direction: ParameterDirection.Input);
 
 			_dbContext.Connection.Execute("PKG_USERS.UpdateUser", p, commandType: CommandType.StoredProcedure);
 		}

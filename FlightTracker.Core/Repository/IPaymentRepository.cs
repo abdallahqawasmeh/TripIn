@@ -11,5 +11,6 @@ namespace FlightTracker.Core.Repository
 	{
 		Payment? GetPaymentById(int paymentId);
 		void UpdateFlightId(int paymentId, int flightId);
+		void UpdatePaymentBalance(decimal balance);
 	}
 }

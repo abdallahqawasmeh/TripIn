@@ -38,6 +38,7 @@ builder.Services.AddScoped<ITestimonialRepository, TestimonialRepository>();
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserLoginRepository, UserLoginRepository>();
+
 //////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -55,9 +56,15 @@ builder.Services.AddScoped<ICompanyService,CompanyService >();
 
 builder.Services.AddScoped<IUserService, UserService>();
 
+builder.Services.AddScoped<IAdminService, AdminService>();
+
 builder.Services.AddScoped<IFlightService, FlightService>();
 
 builder.Services.AddScoped<IAuthService, AuthService>();
+
+builder.Services.AddScoped<InvoiceService>();
+
+
 
 
 

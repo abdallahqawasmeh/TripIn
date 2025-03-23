@@ -69,6 +69,19 @@ namespace FlightTracker.API.Controllers
 				return NotFound();
 			return Ok(user);
 		}
+		[HttpGet("testimonial")]
+		public IActionResult GetTestiMonials()
+		{
+			return Ok(_userService.GetTestimonials());
+		}
+        [HttpPost("testimonial")]
+        public IActionResult CreateTestimonial(string text)
+		{
+			_userService.CreateTestMonial(text);
+			return Ok();
+		}
+
+
 	}
 }
 

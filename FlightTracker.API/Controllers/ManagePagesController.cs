@@ -2,12 +2,14 @@
 using FlightTracker.Core.Requests.ManagePages.ContactInfo;
 using FlightTracker.Core.Requests.ManagePages.Home;
 using FlightTracker.Core.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlightTracker.API.Controllers
 {
-	[Route("api/[controller]")]
+    [Authorize(Roles = "admin")]
+    [Route("api/[controller]")]
 	[ApiController]
 	public class ManagePagesController : ControllerBase
 	{
