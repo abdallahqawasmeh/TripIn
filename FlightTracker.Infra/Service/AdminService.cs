@@ -2,6 +2,11 @@
 using FlightTracker.Core.Repository;
 using FlightTracker.Core.Requests.Admin;
 using FlightTracker.Core.Service;
+using iText.Kernel.Colors;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.Layout.Properties;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 
@@ -115,6 +120,89 @@ namespace FlightTracker.Infra.Service
             return report;
         }
 
-      
-    }
+
+
+
+
+		public string GenerateReport(DateOnly? start, DateOnly? end)
+		{
+			var reportFolder = Path.Combine("Reports");
+			Directory.CreateDirectory(reportFolder);
+
+			var reportFileName = $"Report_{DateTime.Now:yyyyMMddHHmmss}.pdf";
+			var reportPath = Path.Combine(reportFolder, reportFileName);
+
+			if (!start.HasValue)
+				start = DateOnly.MinValue;
+
+			if (!end.HasValue)
+				end = DateOnly.MaxValue;
+
+			var invoices = _invoiceRepository.GetAllInvoices()
+				.Where(x => DateOnly.FromDateTime(x.Invoicedate.Value) >= start && DateOnly.FromDateTime(x.Invoicedate.Value) <= end)
+				.ToList();
+
+			var flightCount = invoices.Count;
+			var profit = invoices.Sum(x => x.Totalamount) ?? 0;
+
+			using (var writer = new PdfWriter(reportPath))
+			using (var pdf = new PdfDocument(writer))
+			using (var document = new Document(pdf))
+			{
+				document.SetMargins(40, 40, 40, 40);
+
+				document.Add(new Paragraph("Flight Tracker Report")
+					.SetTextAlignment(TextAlignment.CENTER)
+					.SetFontSize(24)
+					.SetBold());
+
+				document.Add(new Paragraph($"Report Period: {start.Value:dd/MM/yyyy} - {end.Value:dd/MM/yyyy}")
+					.SetTextAlignment(TextAlignment.CENTER)
+					.SetFontSize(16)
+					.SetMarginBottom(20));
+
+				var table = new Table(2)
+					.SetWidth(UnitValue.CreatePercentValue(100))
+					.SetMarginBottom(20);
+
+				AddReportRow(table, "Total Flights:", flightCount.ToString());
+				AddReportRow(table, "Total Profit:", $"{profit:F2} JOD");
+
+				document.Add(table);
+
+				document.Add(new Paragraph("Generated On:")
+					.SetBold()
+					.SetMarginTop(10));
+
+				document.Add(new Paragraph(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"))
+					.SetFontSize(10));
+
+				document.Add(new Paragraph("Thank you for choosing Flight Tracker!")
+					.SetTextAlignment(TextAlignment.CENTER)
+					.SetMarginTop(30)
+					.SetItalic());
+			}
+
+			return $"/Reports/{reportFileName}";
+		}
+
+		private void AddReportRow(Table table, string label, string value)
+		{
+			table.AddCell(new Cell()
+				.Add(new Paragraph(label))
+				.SetBold()
+				.SetBackgroundColor(ColorConstants.LIGHT_GRAY)
+				.SetPadding(5));
+
+			table.AddCell(new Cell()
+				.Add(new Paragraph(value))
+				.SetPadding(5));
+		}
+
+
+
+
+
+
+	}
 }

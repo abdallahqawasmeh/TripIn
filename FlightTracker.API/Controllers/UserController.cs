@@ -1,4 +1,5 @@
 ﻿using FlightTracker.Core.Data;
+using FlightTracker.Core.Requests.ManagePages.ContactUs;
 using FlightTracker.Core.Requests.User;
 using FlightTracker.Core.Service;
 using Microsoft.AspNetCore.Authorization;
@@ -80,6 +81,22 @@ namespace FlightTracker.API.Controllers
 			_userService.CreateTestMonial(text);
 			return Ok();
 		}
+
+		[HttpPost("ContactUs")]
+		public IActionResult SendEmailContactUs(ContactUsRequest request)
+		{
+		   _userService.SendContactUsEmailAsync(request);
+			return NoContent();
+
+
+
+		}
+
+
+
+
+
+
 
 
 	}

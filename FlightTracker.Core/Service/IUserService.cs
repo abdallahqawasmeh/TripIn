@@ -1,4 +1,5 @@
 ﻿using FlightTracker.Core.Data;
+using FlightTracker.Core.Requests.ManagePages.ContactUs;
 using FlightTracker.Core.Requests.User;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,9 @@ namespace FlightTracker.Core.Service
 		User? GetUserById(int id);
 		void CreateTestMonial(string testmonialText);
         List<Testimonial> GetTestimonials();
+		 Task SendContactUsEmailAsync(ContactUsRequest request);
 
 
-    }
+
+	}
 }

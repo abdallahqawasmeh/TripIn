@@ -16,7 +16,9 @@ namespace FlightTracker.Core.Service
 		Admin GetMyProfile();
 		List<User> GetTop10();
 		Report Reports(DateOnly? Start, DateOnly? End);
+		string GenerateReport(DateOnly? start, DateOnly? end);
 
 
-    }
+
+	}
 }

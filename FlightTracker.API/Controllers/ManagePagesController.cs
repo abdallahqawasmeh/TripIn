@@ -1,4 +1,5 @@
-﻿using FlightTracker.Core.Requests.ManagePages.AboutUs;
+﻿using FlightTracker.Core.Data;
+using FlightTracker.Core.Requests.ManagePages.AboutUs;
 using FlightTracker.Core.Requests.ManagePages.ContactInfo;
 using FlightTracker.Core.Requests.ManagePages.Home;
 using FlightTracker.Core.Service;
@@ -83,7 +84,42 @@ namespace FlightTracker.API.Controllers
 			return Ok(new { Message = "Home updated successfully." });
 		}
 
+		[AllowAnonymous]
+		[HttpPost]
+		[Route("UploadImage")]
+		public IActionResult UploadImage()
+		{
+			var file = Request.Form.Files[0];
+			var filename = Guid.NewGuid().ToString() + "_" + file.FileName;
+			var directoryPath = Path.Combine("Images");
 
+			if (!Directory.Exists(directoryPath))
+				Directory.CreateDirectory(directoryPath);
+
+			var fullpath = Path.Combine(directoryPath, filename);
+
+			using (var fileStream = new FileStream(fullpath, FileMode.Create))
+			{
+				file.CopyTo(fileStream);
+			}
+
+			return Ok(new { filepath = $"{filename}" });
+		}
+
+		[AllowAnonymous]
+		[HttpGet]
+		[Route("GetImage/{filename}")]
+		public IActionResult GetImage(string filename)
+		{
+			var imagePath = Path.Combine("Images", filename);
+
+			if (!System.IO.File.Exists(imagePath))
+				return NotFound();
+
+			var imageFileStream = System.IO.File.OpenRead(imagePath);
+			var mimeType = "image/" + Path.GetExtension(filename).Trim('.').ToLower();
+			return File(imageFileStream, mimeType);
+		}
 
 
 

@@ -69,8 +69,22 @@ namespace FlightTracker.API.Controllers
 		}
 
 
+        [HttpPatch("generate-report")]
+        public IActionResult GenerateReport(getReport reqeust)
+        {
 
 
+			var path = _adminService.GenerateReport(reqeust.StartDateOnly, reqeust.EndDateOnly) ;
+			var absolutePath = Path.Combine(Directory.GetCurrentDirectory(), path.TrimStart('/'));
+
+			if (!System.IO.File.Exists(absolutePath))
+				return NotFound("Report file not found");
+
+			return PhysicalFile(absolutePath, "application/pdf", Path.GetFileName(absolutePath));
+
+
+
+        }
 
 
 
