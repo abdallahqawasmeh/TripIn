@@ -68,6 +68,19 @@ builder.Services.AddScoped<InvoiceService>();
 
 
 
+
+
+builder.Services.AddCors(corsOptions =>
+{
+	corsOptions.AddPolicy("policy",
+	builder =>
+	{
+		builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+	}
+
+	);
+});
+
 builder.Services.Configure<JsonOptions>(options =>
 {
 	options.JsonSerializerOptions.Converters.Add(new TimeOnlyJsonConverter());
@@ -123,6 +136,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseCors("policy");
 
 app.MapControllers();
 
