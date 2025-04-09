@@ -29,12 +29,13 @@ namespace FlightTracker.API.Controllers
 			return Ok(user);
 		}
 
-        // PUT: api/user/profile
-        [Authorize(Roles = "user")]
-
+		// PUT: api/user/profile
+		//[Authorize(Roles = "user")]
+		[AllowAnonymous]
         [HttpPut("profile")]
 		public IActionResult UpdateMyProfile([FromBody] UpdateUserRequest request)
 		{
+			
 			var result = _userService.UpdateMyProfile(request);
 			if (!result)
 				return Conflict("Username already exists.");
@@ -42,7 +43,8 @@ namespace FlightTracker.API.Controllers
 		}
 
         // GET: api/user
-        [Authorize(Roles = "admin")]
+       
+		[Authorize(Roles = "admin")]
         [HttpGet]
 		public ActionResult<List<User>> GetAllUsers()
 		{

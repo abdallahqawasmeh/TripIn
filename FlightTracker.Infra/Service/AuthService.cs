@@ -69,29 +69,29 @@ namespace FlightTracker.Infra.Service
 
         }
         public string AuthUser(string username)
-		{
+        {
 
-			// read about refresh token
-			var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"));
+            // read about refresh token
+            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"));
             var signCredential = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name,username),
-                    new Claim(ClaimTypes.Role,"user"),
-                };
+                      {
+                          new Claim(ClaimTypes.Name,username),
+                          new Claim(ClaimTypes.Role,"user"),
+                      };
 
             var tokenOption = new JwtSecurityToken(claims: claims,
                 expires: DateTime.Now.AddDays(30),
                 signingCredentials: signCredential
                 );
 
-            
-            return new JwtSecurityTokenHandler().WriteToken(tokenOption);
-            
-        }
 
-        public string AuthAdmin(string username)
+            return new JwtSecurityTokenHandler().WriteToken(tokenOption);
+
+        }
+       
+		public string AuthAdmin(string username)
         {
 
 
@@ -101,7 +101,8 @@ namespace FlightTracker.Infra.Service
             var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name,username),
-                    new Claim(ClaimTypes.Role,"admin"),
+                    new Claim(ClaimTypes.Role,"admin")
+
                 };
 
             var tokenOption = new JwtSecurityToken(claims: claims,

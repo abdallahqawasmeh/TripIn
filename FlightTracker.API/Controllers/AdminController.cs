@@ -69,6 +69,7 @@ namespace FlightTracker.API.Controllers
 		}
 
 
+
         [HttpPatch("generate-report")]
         public IActionResult GenerateReport(getReport reqeust)
         {

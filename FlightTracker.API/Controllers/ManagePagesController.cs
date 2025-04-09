@@ -96,7 +96,7 @@ namespace FlightTracker.API.Controllers
 			if (!Directory.Exists(directoryPath))
 				Directory.CreateDirectory(directoryPath);
 
-			var fullpath = Path.Combine(directoryPath, filename);
+			var fullpath = Path.Combine("Images", filename);
 
 			using (var fileStream = new FileStream(fullpath, FileMode.Create))
 			{
@@ -119,6 +119,11 @@ namespace FlightTracker.API.Controllers
 			var imageFileStream = System.IO.File.OpenRead(imagePath);
 			var mimeType = "image/" + Path.GetExtension(filename).Trim('.').ToLower();
 			return File(imageFileStream, mimeType);
+
+
+
+
+
 		}
 
 

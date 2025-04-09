@@ -79,24 +79,24 @@ namespace FlightTracker.API.Controllers
 
 
 
-		[HttpPost]
-		[Route("UploadImage")]
+		//[HttpPost]
+		//[Route("UploadImage")]
 
-		public Company UploadImage()
-		{
-			var file = Request.Form.Files[0];
-			var filename = Guid.NewGuid().ToString() + "_" + file.FileName;
-			var fullpath= Path.Combine("Images",filename);
-			using(var fileStream = new FileStream(fullpath, FileMode.Create))
-			{
-				file.CopyTo(fileStream);
-			}
+		//public Company UploadImage()
+		//{
+		//	var file = Request.Form.Files[0];
+		//	var filename = Guid.NewGuid().ToString() + "_" + file.FileName;
+		//	var fullpath= Path.Combine("Images",filename);
+		//	using(var fileStream = new FileStream(fullpath, FileMode.Create))
+		//	{
+		//		file.CopyTo(fileStream);
+		//	}
 
-			Company item =new Company();
-			item.Imagepath = filename;
-			return item;
+		//	Company item =new Company();
+		//	item.Imagepath = filename;
+		//	return item;
 
 
-		}
+		//}
 	}
 }

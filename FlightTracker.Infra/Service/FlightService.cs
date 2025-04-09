@@ -77,7 +77,9 @@ namespace FlightTracker.Infra.Service
 		public void DeleteFlight(int flightId)
 		{
 
+
 			_flightRepository.DeleteFlight(flightId);
+
 
 		}
 
